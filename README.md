@@ -2,7 +2,7 @@
 
 > source img: https://www.geeksforgeeks.org/big-data/data-warehousing/
 
-# Project Title: data-warehouse-etl-idxpartners
+# Project Title: Data Warehouse
 
 ## 📝 Overview
 As a Data Engineer Intern at ID/X Partners (via Rakamin Academy), my job is to build a Data Warehouse and ETL pipeline for a banking client. The client had data scattered across multiple sources (Excel, CSV, and SQL Server) and struggled to consolidate them for reporting and analysis. The goal was to centralise everything into a single Data Warehouse with clean, deduplicated data and stored procedures for quick reporting.
