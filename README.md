@@ -1,6 +1,6 @@
-![Data Warehouse ETL Pipeline](https://www.qlik.com/us/-/media/images/global-us/direct-discovery/etl-pipeline-diagram.png)
+![Data Warehouse ETL Pipeline](https://media.geeksforgeeks.org/wp-content/uploads/20250127161828904427/data_warehouse-660.webp)
 
-> source img: https://www.qlik.com/us/-/media/images/global-us/direct-discovery/etl-pipeline-diagram.png
+> source img: https://www.geeksforgeeks.org/big-data/data-warehousing/
 
 # Project Title: data-warehouse-etl-idxpartners
 
