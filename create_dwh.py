@@ -10,23 +10,22 @@ def create_database():
         CREATE DATABASE DWH
     """)
     conn.close()
-    print(" Database DWH created (or already exists)")
+    print("✅ Database DWH created (or already exists)")
 
 def create_tables():
     conn = raw_connection("DWH")
     conn.autocommit = True
     cursor = conn.cursor()
 
-    cursor.execute("""
-        IF OBJECT_ID('FactTransaction', 'U') IS NOT NULL DROP TABLE FactTransaction;
-        IF OBJECT_ID('DimAccount', 'U')      IS NOT NULL DROP TABLE DimAccount;
-        IF OBJECT_ID('DimCustomer', 'U')     IS NOT NULL DROP TABLE DimCustomer;
-        IF OBJECT_ID('DimBranch', 'U')       IS NOT NULL DROP TABLE DimBranch;
-    """)
+    # Drop in reverse FK order — split into individual execute calls to avoid pyodbc batch issues
+    cursor.execute("IF OBJECT_ID('FactTransaction', 'U') IS NOT NULL DROP TABLE FactTransaction")
+    cursor.execute("IF OBJECT_ID('DimAccount', 'U')      IS NOT NULL DROP TABLE DimAccount")
+    cursor.execute("IF OBJECT_ID('DimCustomer', 'U')     IS NOT NULL DROP TABLE DimCustomer")
+    cursor.execute("IF OBJECT_ID('DimBranch', 'U')       IS NOT NULL DROP TABLE DimBranch")
 
     cursor.execute("""
         CREATE TABLE DimCustomer (
-            CustomerID   INT          PRIMARY KEY,
+            CustomerID   INT           PRIMARY KEY,
             CustomerName NVARCHAR(100),
             Address      NVARCHAR(200),
             CityName     NVARCHAR(100),
@@ -58,9 +57,9 @@ def create_tables():
 
     cursor.execute("""
         CREATE TABLE FactTransaction (
-            TransactionID   INT          PRIMARY KEY,
-            AccountID       INT          FOREIGN KEY REFERENCES DimAccount(AccountID),
-            BranchID        INT          FOREIGN KEY REFERENCES DimBranch(BranchID),
+            TransactionID   INT         PRIMARY KEY,
+            AccountID       INT         FOREIGN KEY REFERENCES DimAccount(AccountID),
+            BranchID        INT         FOREIGN KEY REFERENCES DimBranch(BranchID),
             TransactionDate DATETIME,
             Amount          BIGINT,
             TransactionType NVARCHAR(50)
@@ -68,7 +67,7 @@ def create_tables():
     """)
 
     conn.close()
-    print(" All DWH tables created with PKs and FKs")
+    print("✅ All DWH tables created with PKs and FKs")
 
 if __name__ == "__main__":
     create_database()
